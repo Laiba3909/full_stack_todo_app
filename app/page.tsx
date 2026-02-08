@@ -1,10 +1,11 @@
-'use client'
+'use client'  // Add this at the very top
 
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
-import Task from '@/app/components/TaskForm' 
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000'
+
+// For Hugging Face Spaces, use relative path for backend
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || ''
 
 interface User {
   id: string
@@ -22,8 +23,13 @@ export default function HomePage() {
   const router = useRouter()
 
   useEffect(() => {
-    checkBackendStatus()
-    checkAuth()
+    // Only run on client side
+    if (typeof window !== 'undefined') {
+      checkBackendStatus()
+      checkAuth()
+    } else {
+      setIsLoading(false)
+    }
   }, [])
 
   const checkBackendStatus = async () => {
@@ -45,12 +51,14 @@ export default function HomePage() {
       }
     } catch (error) {
       setIsBackendOnline(false)
-      setBackendError('Cannot connect to backend server. Make sure it is running on http://localhost:8000')
+      setBackendError('Cannot connect to backend server. Please check if the backend is running.')
       console.error('Backend connection error:', error)
     }
   }
 
   const checkAuth = async () => {
+    if (typeof window === 'undefined') return
+    
     const token = localStorage.getItem('token')
     
     if (!token) {
