@@ -1,0 +1,65 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap");
+
+/* Tailwind v4 */
+@import "tailwindcss";
+
+:root {
+  --foreground: 0 0 0;        /* black text */
+  --background: 0 0 0;        /* black background */
+  
+         /* green */
+  --primary-dark: 22 163 74;
+  --gray-light: 0 0 0;        /* replace light grey with black */
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --foreground: 237 237 237;
+    --background: white;
+  }
+}
+
+/* ---------- BASE ---------- */
+body {
+  color: rgb(var(--foreground));
+  background: rgb(var(--background));
+  font-family: "Poppins", sans-serif;
+}
+
+/* ---------- COMPONENTS ---------- */
+@layer components {
+  .btn-primary {
+    @apply text-white rounded-lg transition-all duration-300 px-6 py-3;
+    background-color: rgb(var(--primary));
+  }
+
+  .btn-primary:hover {
+    background-color: rgb(var(--primary-dark));
+  }
+
+  .btn-secondary {
+    @apply rounded-lg transition-all duration-300 px-6 py-3 border;
+    color: rgb(var(--primary));
+    border-color: rgb(var(--primary));
+    background: rgb(0, 0, 0); /* black background */
+  }
+
+  .card-hover {
+    @apply transition-all duration-300 hover:-translate-y-1 hover:shadow-xl;
+  }
+
+  .input-field {
+    @apply w-full px-4 py-3 rounded-lg border focus:outline-none;
+    border-color: #000000;  /* black border */
+    background: #000000;     /* black background */
+    color: #000000;          /* white text for visibility */
+  }
+
+  .section-padding {
+    @apply px-4 sm:px-6 lg:px-8 py-8;
+  }
+
+  .container-custom {
+    @apply max-w-7xl mx-auto;
+  }
+}
